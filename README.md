@@ -23,5 +23,5 @@ pip install -r requirements.txt
 
 Run it
 ```
-python main.py
+python main.py -filename resources/hipster.jpg
 ```
