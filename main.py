@@ -1,13 +1,16 @@
-import os
 
 import io
+
+from flask import json
 from google.cloud import vision
+from flask import Flask
+
+app = Flask(__name__)
 
 
-def main():
+@app.route("/labels")
+def get_labels():
     client = vision.Client()
-
-    # The name of the image file to annotate
     file_name = 'resources/traje.jpg'
 
     # Loads the image into memory
@@ -18,9 +21,10 @@ def main():
     # Performs label detection on the image file
     labels = image.detect_labels()
 
-    print('Labels:')
+    labels_json = {'Labels':[]}
     for label in labels:
-        print(label.description)
+        labels_json['Labels'].append(label.description)
+    return json.dumps(labels_json)
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True, use_reloader=True)
