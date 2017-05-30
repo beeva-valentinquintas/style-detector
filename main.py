@@ -1,30 +1,25 @@
-
-import io
-
-from flask import json
+from flask import request
 from google.cloud import vision
 from flask import Flask
+import base64
+
+from style import Style
 
 app = Flask(__name__)
 
 
-@app.route("/labels")
+@app.route("/labels", methods=['POST'])
 def get_labels():
     client = vision.Client()
-    file_name = 'resources/traje.jpg'
-
-    # Loads the image into memory
-    with io.open(file_name, 'rb') as image_file:
-        content = image_file.read()
-        image = client.image(content=content)
-
-    # Performs label detection on the image file
+    decoded_image = base64.b64decode(request.data)
+    image = client.image(content=decoded_image)
     labels = image.detect_labels()
+    style = Style(request.data)
+    style.set_labels(labels)
 
-    labels_json = {'Labels':[]}
-    for label in labels:
-        labels_json['Labels'].append(label.description)
-    return json.dumps(labels_json)
+    for label in style.labels['labels']:
+        print label
+    return style.as_json()
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_debugger=False, use_reloader=False)
