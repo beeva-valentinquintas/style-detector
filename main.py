@@ -1,9 +1,9 @@
-
-import io
-
-from flask import json
+from flask import request, jsonify
 from google.cloud import vision
 from flask import Flask
+import base64
+
+from style import Style
 
 app = Flask(__name__)
 
@@ -14,19 +14,16 @@ mydict={}
 for row in csv.reader(open('resources/labels.csv')):
     mydict[row[0]] = {'style': row[1], 'label': row[0], 'points': row[2]}
 
-@app.route("/labels")
+@app.route("/labels", methods=['POST'])
 def get_labels():
 
     client = vision.Client()
-    file_name = 'resources/traje.jpg'
-
-    # Loads the image into memory
-    with io.open(file_name, 'rb') as image_file:
-        content = image_file.read()
-        image = client.image(content=content)
-
-    # Performs label detection on the image file
+    decoded_image = base64.b64decode(request.data)
+    image = client.image(content=decoded_image)
     labels = image.detect_labels()
+    style = Style(request.data)
+    style.set_labels(labels)
+
 
     global mydict
     labels_json = {'Labels':[]}
@@ -37,7 +34,13 @@ def get_labels():
             style = mydict[label.description]
             #print style
             styles_json['Styles'].append(style)
-    return json.dumps(styles_json)
+
+    for label in style.labels:
+        print label
+    response = jsonify(style.as_dict())
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_debugger=False, use_reloader=False)
