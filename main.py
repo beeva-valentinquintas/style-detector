@@ -17,7 +17,7 @@ def get_labels():
     style = Style(request.data)
     style.set_labels(labels)
 
-    for label in style.labels['labels']:
+    for label in style.labels:
         print label
     return style.as_json()
 
