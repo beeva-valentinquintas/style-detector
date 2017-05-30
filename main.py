@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from google.cloud import vision
 from flask import Flask
 import base64
@@ -19,7 +19,9 @@ def get_labels():
 
     for label in style.labels:
         print label
-    return style.as_json()
+    response = jsonify(style.as_dict())
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True, use_debugger=False, use_reloader=False)

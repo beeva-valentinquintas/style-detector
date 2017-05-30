@@ -1,6 +1,3 @@
-import json
-
-
 class Style(object):
 
     def __init__(self, stream):
@@ -12,5 +9,5 @@ class Style(object):
         for label in labels:
             self.labels.append({'description': label.description, 'score': label.score})
 
-    def as_json(self):
-        return json.dumps(self.__dict__)
+    def as_dict(self):
+        return self.__dict__
