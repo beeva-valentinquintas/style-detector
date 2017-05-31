@@ -23,5 +23,10 @@ pip install -r requirements.txt
 
 Run it
 ```
-python main.py -filename resources/hipster.jpg
+python main.py
 ```
+Your API id running on port 5000
+
+#### Endpoints
+
+###### /labels
