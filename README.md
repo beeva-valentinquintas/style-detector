@@ -25,7 +25,7 @@ Run it
 ```
 python main.py
 ```
-Your API id running on port 5000
+Your API is running on port 5000
 
 #### Endpoints
 
