@@ -29,4 +29,37 @@ Your API id running on port 5000
 
 #### Endpoints
 
-###### /labels
+###### POST /labels
+
+Parameters
+
+    Byte image in octect-stream format base 64 encoded
+
+Response
+```
+{
+  "image_stream": "ASDAISDMIAMIAWDIMWDIWMDIWD",
+  "labels": [
+    {
+        'description': 'beard',
+        'score': 0.88
+    },
+    {
+        'description': 'tartan',
+        'score': 0.65
+    }
+  ],
+  "styles": [
+    {
+        'style': 'hipster',
+        'label': 'beard',
+        'points': 1
+    },
+    {
+        'style': 'hipster',
+        'label': 'tartan',
+        'points': 1
+    }
+  ]
+}
+```
