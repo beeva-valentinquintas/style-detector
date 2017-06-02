@@ -35,31 +35,70 @@ Parameters
 
     Byte image in octect-stream format base 64 encoded
 
-Response
+Not found response
+
+Status 200
 ```
 {
-  "image_stream": "ASDAISDMIAMIAWDIMWDIWMDIWD",
-  "labels": [
-    {
-        'description': 'beard',
-        'score': 0.88
+    "message": "Couldn't find any similarities"
+}
+```
+
+
+Found response
+
+Status 200
+```
+{
+    'myself': {
+        'styles': [
+            {
+                'style': 'hipster',
+                'labels': ['beard', 'moustache'],
+                'points': 2
+            },
+            {
+                'style': 'business',
+                'labels': ['necktie'],
+                'points': 1
+            },
+            {
+                'style': 'sport',
+                'labels': [],
+                'points': 0
+            },
+            {
+                'style': 'geek',
+                'labels': [],
+                'points': 0
+            }
+        ],
+        'image': 'ASDAJSNDANWDNAWNWNXUNWXWX...'
     },
-    {
-        'description': 'tartan',
-        'score': 0.65
+    'twin': {
+        'styles': [
+            {
+                'style': 'hipster',
+                'labels': ['beard', 'moustache'],
+                'points': 2
+            },
+            {
+                'style': 'business',
+                'labels': [],
+                'points': 0
+            },
+            {
+                'style': 'sport',
+                'labels': [],
+                'points': 0
+            },
+            {
+                'style': 'geek',
+                'labels': [],
+                'points': 0
+            }
+        ],
+        'image': 'PNUNADNWASDASDASDNAWNWNXU...'
     }
-  ],
-  "styles": [
-    {
-        'style': 'hipster',
-        'label': 'beard',
-        'points': 1
-    },
-    {
-        'style': 'hipster',
-        'label': 'tartan',
-        'points': 1
-    }
-  ]
 }
 ```
