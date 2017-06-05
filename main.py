@@ -13,7 +13,7 @@ def get_labels():
     decoded_image = base64.b64decode(request.data)
     image = client.image(content=decoded_image)
     labels_objects = image.detect_labels()
-    labels = [str(label.description) for label in labels_objects]
+    labels = [str(label.description.lower()) for label in labels_objects]
     logos_objects = image.detect_logos()
     logos = [str(logo.description).lower() for logo in logos_objects]
     labels.extend(logos)
