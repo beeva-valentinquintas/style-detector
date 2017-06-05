@@ -14,6 +14,9 @@ def get_labels():
     image = client.image(content=decoded_image)
     labels_objects = image.detect_labels()
     labels = [str(label.description) for label in labels_objects]
+    logos_objects = image.detect_logos()
+    logos = [str(logo.description).lower() for logo in logos_objects]
+    labels.extend(logos)
     style = StylesComparator(request.data)
     twin_response = style.find_twin(labels)
     style.save_new_image_and_labels(labels)
