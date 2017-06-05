@@ -65,5 +65,3 @@ function sendImage(imageAsBytes) {
 
     oReq.send(blob);
 }
-
-}
