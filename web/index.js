@@ -51,21 +51,6 @@ function convertToCognitiveFormat(dataURL) {
 }
 
 
-function sendImage(imageAsBytes) {
-    var parts = imageAsBytes.split(',');
-    url = "http://127.0.0.1:5000/labels"
-    var oReq = new XMLHttpRequest();
-    oReq.open("POST", url, true);
-    oReq.onload = function (oEvent) {
-      // Uploaded.
-    };
-
-    var blob = new Blob([parts[1]], {type: 'text/plain'});
-
-    oReq.send(blob);
-}
-
-
 function sendImagePost(imageAsBytes) {
     var parts = imageAsBytes.split(',');
     $.ajax({
