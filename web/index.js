@@ -57,7 +57,8 @@ function sendImage(imageAsBytes) {
     var oReq = new XMLHttpRequest();
     oReq.open("POST", url, true);
     oReq.onload = function (oEvent) {
-      // Uploaded.
+        // do something to response
+        console.log(this.responseText);
     };
 
     var blob = new Blob([parts[1]], {type: 'text/plain'});
