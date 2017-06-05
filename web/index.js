@@ -23,7 +23,7 @@ function getUserFaces(){
 
     console.log( dataCaptured );
 
-    labels = sendImage(dataCaptured);
+    labels = sendImagePost(dataCaptured);
 
     console.log(labels);
 }
@@ -63,4 +63,22 @@ function sendImage(imageAsBytes) {
     var blob = new Blob([parts[1]], {type: 'text/plain'});
 
     oReq.send(blob);
+}
+
+
+function sendImagePost(imageAsBytes) {
+    var parts = imageAsBytes.split(',');
+    $.ajax({
+    type: 'POST',
+    url: 'http://localhost:5000/labels',
+    crossDomain: false,
+    data: imageAsBytes,
+    success: function(responseData, textStatus, jqXHR) {
+        console.log(responseData);
+    },
+    error: function (responseData, textStatus, errorThrown) {
+        alert('POST failed.');
+    }
+});
+
 }

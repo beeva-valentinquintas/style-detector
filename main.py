@@ -1,4 +1,5 @@
 from flask import request, jsonify
+from flask_cors import cross_origin
 from google.cloud import vision
 from flask import Flask
 import base64
@@ -8,6 +9,7 @@ app = Flask(__name__)
 
 
 @app.route("/labels", methods=['POST'])
+@cross_origin()
 def get_labels():
     client = vision.Client()
     decoded_image = base64.b64decode(request.data)
@@ -21,7 +23,7 @@ def get_labels():
         response = jsonify(style.create_error_output())
     else:
         response = jsonify(style.create_output(labels, twin_response))
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.status_code = 200
     return response
 
 
