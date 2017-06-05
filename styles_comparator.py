@@ -14,7 +14,7 @@ class StylesComparator(object):
     def get_valid_styles():
         valid_styles = {}
         for row in csv.reader(open(join(dirname(__file__), 'resources', 'labels.csv'))):
-            valid_styles[row[0]] = {'style': row[1], 'label': row[0], 'points': row[2]}
+            valid_styles[row[0]] = {'style': row[1], 'label': row[0], 'points': row[2], 'feature': row[3]}
         return valid_styles
 
     def save_new_image_and_labels(self, labels):
@@ -84,7 +84,8 @@ class StylesComparator(object):
     @staticmethod
     def divide_labels_by_style(style, labels, valid_styles):
         valid_labels = valid_styles.keys()
-        return [label for label in labels if label in valid_labels and valid_styles[label]['style'] == style]
+        labels_by_style = list(set([valid_styles[label]['feature'] for label in labels if label in valid_labels and valid_styles[label]['style'] == style]))
+        return labels_by_style
 
     def calculate_points(self, labels):
         points = 0
