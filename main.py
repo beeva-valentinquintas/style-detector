@@ -8,6 +8,7 @@ from flask import Flask
 import base64
 import io
 from PIL import Image
+from google.cloud.vision.feature import FeatureTypes, Feature
 
 from os.path import join, dirname
 
@@ -22,14 +23,16 @@ def get_labels():
     client = vision.Client()
     decoded_image = base64.b64decode(request.data)
     image = client.image(content=decoded_image)
-    labels_objects = image.detect_labels()
-    labels = [str(label.description.lower()) for label in labels_objects]
 
-    logos_objects = image.detect_logos()
-    logos = [str(logo.description).lower() for logo in logos_objects]
+    all_data = image.detect([Feature(FeatureTypes.FACE_DETECTION),
+                             Feature(FeatureTypes.LABEL_DETECTION),
+                             Feature(FeatureTypes.LOGO_DETECTION)])
+    labels = [str(label.description).lower() for label in all_data[0].labels]
+    logos = [str(logo.description).lower() for logo in all_data[0].logos]
+    faces = [face for face in all_data[0].faces]
     labels.extend(logos)
 
-    save_labels_and_image(decoded_image, labels_objects)
+    save_labels_and_image(decoded_image, all_data[0].labels)
 
     style = StylesComparator(request.data)
     twin_response = style.find_twin(labels)
