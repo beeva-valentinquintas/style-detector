@@ -1,4 +1,5 @@
 import json
+import os
 import time
 from flask import request, jsonify
 from flask_cors import cross_origin
@@ -42,6 +43,8 @@ def get_labels():
 
 
 def save_labels_and_image(decoded_image, labels_objects):
+    if not os.path.exists(join(dirname(__file__), "test_images")):
+        os.mkdir(join(dirname(__file__), "test_images"))
     labels_with_scores = [{"label": str(label.description.lower()), "score": label.score} for label in labels_objects]
     timestamp = str(time.time())
     filename = join(dirname(__file__), "test_images", timestamp)
