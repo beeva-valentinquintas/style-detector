@@ -17,7 +17,6 @@ Generate virtual environment
 ```
 virtualenv -p python2 virtual_env_folder
 source virtual_env_folder/bin/activate
-cd modernometro
 pip install -r requirements.txt
 ```
 
@@ -101,4 +100,9 @@ Status 200
         'image': 'PNUNADNWASDASDASDNAWNWNXU...'
     }
 }
+```
+
+Test it
+```
+python test.py
 ```
