@@ -1,3 +1,5 @@
 google-cloud-vision
 flask==0.10.1
 pandas==0.20.1
+flask-cors
+image
