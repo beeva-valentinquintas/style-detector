@@ -27,6 +27,17 @@ class StylesComparator(object):
                 data_store.write(style_string)
         data_store.close()
 
+    def filter_labels(self, labels):
+        hipster_labels = self.divide_labels_by_style("hipster", labels, self.valid_styles)
+        business_labels = self.divide_labels_by_style("business", labels, self.valid_styles)
+        sport_labels = self.divide_labels_by_style("sport", labels, self.valid_styles)
+        geek_labels = self.divide_labels_by_style("geek", labels, self.valid_styles)
+        labels = hipster_labels
+        labels.extend(business_labels)
+        labels.extend(sport_labels)
+        labels.extend(geek_labels)
+        return labels
+
     def find_twin(self, labels):
         coincidences = []
         df = pandas.read_csv(join(dirname(__file__), 'resources', 'datastore'),
