@@ -1,4 +1,5 @@
 beard,hipster,1,beard
+bow tie,hipster,1,bow tie
 tartan,hipster,1,tartan
 moustache,hipster,1,moustache
 facial hair,hipster,1,beard
@@ -6,8 +7,10 @@ cap,hipster,1,hat
 knit cap,hipster,1,hat
 hat,hipster,1,hat
 headger,hipster,1,hat
+fedora,hipster,1,hat
 suit,business,1,suit
 necktie,business,1,necktie
+fashion accessory,business,1,necktie
 tuxedo,business,1,tuxedo
 formal wear,business,1,suit
 white collar worker,business,1,suit
