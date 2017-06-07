@@ -28,8 +28,8 @@ class ImageManager(object):
 
     @staticmethod
     def crop_image_by_face(image_path, face_objects):
-        x_delta = 0.8
-        y_delta = 0.2
+        x_delta = 0.3  # horizontal padding. Starting from upper left corner of bounding box of main face
+        y_delta = 0.2  # horizontal padding
         img = Image.open(image_path)
         if len(face_objects) == 0:
             return None
