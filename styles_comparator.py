@@ -47,7 +47,7 @@ class StylesComparator(object):
         others_labels = others_df.apply(list).values
         for other in others_labels:
             coincidences.append(set(other).intersection(set(labels)))
-        if not coincidences:
+        if len(coincidences) < 2:
             return None
         (index, better_list) = max(enumerate(coincidences), key=lambda tup: len(tup[1]))
         image = others_groups_keys[index]
@@ -90,6 +90,13 @@ class StylesComparator(object):
                     "labels": geek_labels,
                     "points": self.calculate_points(geek_labels)
                 }
+            ],
+            "image": image
+        }
+
+    def create_myself_output(self, image):
+        return {
+            "styles": [
             ],
             "image": image
         }

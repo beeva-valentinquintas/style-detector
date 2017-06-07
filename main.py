@@ -23,12 +23,12 @@ def get_labels():
     labels = style.filter_labels(labels)
     twin_response = style.find_twin(labels)
     style.save_new_image_and_labels(labels)
-    return generate_response(labels, style, twin_response)
+    return generate_response(labels, style, twin_response, decoded_image)
 
 
-def generate_response(labels, style, twin_response):
+def generate_response(labels, style, twin_response, decoded_image):
     if not twin_response:
-        response = jsonify(style.create_error_output())
+        response = jsonify(style.create_myself_output(decoded_image))
     else:
         response = jsonify(style.create_output(labels, twin_response))
     response.status_code = 200
