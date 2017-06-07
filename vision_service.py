@@ -24,4 +24,6 @@ class VisionService(object):
 
         saved_image_path = self.image_manager.save_image(decoded_image)
         cropped_image = self.image_manager.crop_image_by_face(saved_image_path, faces_objects)
+        if cropped_image is None:
+            return decoded_image, saved_image_path
         return cropped_image, saved_image_path

@@ -28,9 +28,11 @@ class ImageManager(object):
 
     @staticmethod
     def crop_image_by_face(image_path, face_objects):
-        x_delta = 1.3
-        y_delta = 0.3
+        x_delta = 0.8
+        y_delta = 0.2
         img = Image.open(image_path)
+        if len(face_objects) == 0:
+            return None
         face_vertices = face_objects[0].bounds.vertices
         x0, y0, x2, y2 = (face_vertices[0].x_coordinate, face_vertices[0].y_coordinate,
                           face_vertices[2].x_coordinate, face_vertices[2].y_coordinate)
