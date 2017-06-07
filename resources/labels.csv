@@ -1,6 +1,7 @@
 beard,hipster,1,beard
 bow tie,hipster,1,bow tie
 tartan,hipster,1,tartan
+gingham,hipster,1,tartan
 moustache,hipster,1,moustache
 facial hair,hipster,1,beard
 cap,hipster,1,hat
@@ -8,13 +9,14 @@ knit cap,hipster,1,hat
 hat,hipster,1,hat
 headger,hipster,1,hat
 fedora,hipster,1,hat
-suit,business,1,suit
 necktie,business,1,necktie
 fashion accessory,business,1,necktie
 tuxedo,business,1,tuxedo
 formal wear,business,1,suit
 white collar worker,business,1,suit
 gentleman,business,1,suit
+suit,business,1,suit
+profession,business,1,suit
 hood,sport,1,hood
 hoodie,sport,1,hood
 sweatshirt,sport,1,sweartshirt
@@ -27,5 +29,6 @@ star wars,geek,1,star wars
 star wars: the force awakens,geek,1,star wars
 the force,geek,1,star wars
 film poster,geek,1,star wars
+comics,geek,1,comics
 google,geek,1,google
 technology,geek,1,technology
