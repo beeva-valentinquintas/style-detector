@@ -42,13 +42,15 @@ class StylesComparator(object):
         coincidences = []
         df = pandas.read_csv(join(dirname(__file__), 'resources', 'datastore'),
                              header=None, names=["style", "label", "points", "image"])
-        others_labels = df.groupby('image')['label'].apply(list).values
+        others_df = df.groupby('image')['label']
+        others_groups_keys = others_df.groups.keys()
+        others_labels = others_df.apply(list).values
         for other in others_labels:
             coincidences.append(set(other).intersection(set(labels)))
         if not coincidences:
             return None
         (index, better_list) = max(enumerate(coincidences), key=lambda tup: len(tup[1]))
-        image = df.iloc[index].values[3]
+        image = others_groups_keys[index]
         return self.create_output_for_user(image, better_list)
 
     def create_output(self, myself_labels, twin_output):
