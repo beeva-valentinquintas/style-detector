@@ -15,6 +15,12 @@ class VisionService(object):
         labels = [str(label.description).lower() for label in all_data[0].labels]
         logos = [str(logo.description).lower() for logo in all_data[0].logos]
         labels.extend(logos)
+
+        annotations = image.detect_web()
+        entities = [str(entity.description).lower() for entity in annotations.web_entities]
+        #print entities
+        labels.extend(entities)
+        #self.report(entities)
         self.image_manager.save_labels(saved_image_path, all_data[0].labels)
         return labels
 
@@ -27,3 +33,17 @@ class VisionService(object):
         if cropped_image is None:
             return decoded_image, saved_image_path
         return cropped_image, saved_image_path
+
+
+    def report(self,annotations):
+        """Prints detected features in the provided web annotations."""
+        # [START print_annotations]
+
+        if annotations.web_entities:
+            print ('\n{} Web entities found: '.format(
+            len(annotations.web_entities)))
+
+            for entity in annotations.web_entities:
+                print('Score      : {}'.format(entity.score))
+                print('Description: {}'.format(entity.description))
+        # [END print_annotations]
