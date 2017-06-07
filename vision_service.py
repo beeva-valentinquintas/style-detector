@@ -1,5 +1,5 @@
 from google.cloud.vision.feature import FeatureTypes, Feature
-
+import re
 
 class VisionService(object):
 
@@ -17,7 +17,7 @@ class VisionService(object):
         labels.extend(logos)
 
         annotations = image.detect_web()
-        entities = [str(entity.description).lower() for entity in annotations.web_entities]
+        entities = [str(re.sub(r'[^\x00-\x7F]+',' ', entity.description)).lower() for entity in annotations.web_entities]
         #print entities
         labels.extend(entities)
         #self.report(entities)
