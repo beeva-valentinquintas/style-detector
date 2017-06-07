@@ -1,7 +1,11 @@
+import io
 import requests
 import sys
-
+import time
+from PIL import Image
 from google.cloud import vision
+from os.path import join
+
 from image_manager import ImageManager
 from styles_comparator import StylesComparator
 from vision_service import VisionService
@@ -47,8 +51,19 @@ def test2(data):
     res = requests.post(url='http://localhost:5000/labels',
                     data=data64,
                     headers={'Content-Type': 'application/octet-stream'})
-
     return res.json()['myself']['styles']
 
-print test1(data)
+
+def test3(data):
+    import base64
+    data64 = base64.b64encode(data)
+    res = requests.post(url='http://localhost:5000/labels',
+                    data=data64,
+                    headers={'Content-Type': 'application/octet-stream'})
+
+    twin = res.json()['twin']['image']
+    image = Image.open(io.BytesIO(base64.b64decode(twin)))
+    image.save(join("/tmp/", str(time.time())), format="JPEG")
+
+print test3(data)
 #print test2(data)

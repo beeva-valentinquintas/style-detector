@@ -19,8 +19,8 @@ def get_labels():
 
     vision_service = VisionService(client, image_manager)
     labels = vision_service.find_features(decoded_image)
-
     style = StylesComparator(request.data)
+    labels = style.filter_labels(labels)
     twin_response = style.find_twin(labels)
     style.save_new_image_and_labels(labels)
     return generate_response(labels, style, twin_response)
